@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:zippt/colors.dart';
 import 'package:zippt/home_screen.dart';
 import 'checklist_screen.dart';
-import 'archive_page.dart';
+import 'pages/archive_page.dart';
+
+import 'widgets/custom_bottom_navigation_bar.dart';
 
 void main() {
   // Flutter 앱의 시작점
@@ -39,7 +41,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -91,7 +93,7 @@ class MyHomePage extends StatefulWidget {
   //상태를 가질 수 있는 StatefulWidget을 상속받음.
   //사용자가 상호작용 해서 상태가 변경될 때, UI를 다시 빌드해 화면에 반영 가능
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -101,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    ChecklistScreen(),
+    const ChecklistScreen(),
     const Center(child: Text('Add')),
     ArchivePage(),
     const Center(child: Text('Profile')),
@@ -117,46 +119,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //build 메서드는 UI를 정의하는 곳. Scaffold 위젯을 사용해 기본 레이아웃을 구성
     return Scaffold(
-      //Flutter에서 화면의 기본 구조를 정의하는 위젯
       appBar: AppBar(
         backgroundColor: AppColors.main,
-        elevation: 0, // AppBar 그림자 제거
-        title: null, // 타이틀 제거
+        elevation: 0,
+        title: null,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.mainBlue, 
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.done),
-            label: 'Checklist',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Add',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.inbox),
-            label: 'Archive',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
-       
+      bottomNavigationBar: CustomBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+        backgroundColor: AppColors.mainBlue, // 기존 색상 유지
       ),
     );
   }
