@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'checklist_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,12 +26,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Home'),
-    Text('Search'),
-    Text('Notifications'),
-    Text('Messages'),
-    Text('Profile'),
+  final List<Widget> _widgetOptions = <Widget>[
+    Center(child: Text('Home')),
+    ChecklistScreen(), // 두 번째 탭에 ChecklistScreen 추가
+    Center(child: Text('Add')),
+    Center(child: Text('Archive')),
+    Center(child: Text('Profile')),
   ];
 
   void _onItemTapped(int index) {
