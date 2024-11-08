@@ -7,19 +7,34 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFFF9F8F4),
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9F8F4),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WeatherCard(),
-              SizedBox(height: 20),
-              RecentHouseCard(),
-              SizedBox(height: 20),
-              AverageInfoSection(),
+              const WeatherCard(),
+              const SizedBox(height: 20),
+              const Text(
+                '내가 봤던 집',
+                style: TextStyle(
+                  fontFamily: 'GowunBatang', // GowunBatang 폰트 사용
+                  fontWeight: FontWeight.bold, // Bold 스타일 적용
+                  fontSize: 20, // 텍스트 크기 설정
+                ),
+              ),
+              const SizedBox(height: 10),
+              // houses 리스트를 통해 ListView.builder로 HouseCard 표시
+              ListView.builder(
+                shrinkWrap: true, // SingleChildScrollView 내에서 스크롤 제한
+                physics: const NeverScrollableScrollPhysics(), // 스크롤 중복 방지
+                itemCount: houses.length,
+                itemBuilder: (context, index) {
+                  return HouseCard(house: houses[index]);
+                },
+              ),
             ],
           ),
         ),
@@ -62,7 +77,7 @@ class _WeatherCardState extends State<WeatherCard> {
 
     if (response.statusCode == 200) {
       final data = json.decode(utf8.decode(response.bodyBytes));
-      
+
       setState(() {
         city = data['city'];
         temperature = "${data['temperature']['current']}°";
@@ -107,10 +122,12 @@ class _WeatherCardState extends State<WeatherCard> {
                 children: [
                   Text(
                     temperature,
-                    style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 36, fontWeight: FontWeight.bold),
                   ),
                   Text(description),
-                  Text(feelsLike, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+                  Text(feelsLike,
+                      style: const TextStyle(fontSize: 14, color: Colors.grey)),
                 ],
               ),
               const Spacer(),
@@ -134,74 +151,101 @@ class _WeatherCardState extends State<WeatherCard> {
   }
 }
 
-class RecentHouseCard extends StatelessWidget {
-  const RecentHouseCard({super.key});
+final List<House> houses = [
+  House(
+    title: '영상강 뷰 완전 좋은 단독주택',
+    date: '1999년 11월 1일 오후 11시',
+    address: '복당시 북당읍 북당리 북당마을 2단지 초가집 2호',
+    imageUrl: 'assets/images/house_image1.jpg',
+  ),
+  House(
+    title: '배산임수 풍수 최고 단독주택',
+    date: '2000년 12월 2일 오후 2시',
+    address: '광주광역시 북구 첨단과기로123 1호',
+    imageUrl: 'assets/images/house_image2.jpg',
+  ),
+  House(
+    title: '사과농장 뷰 달콤 단독주택',
+    date: '2001년 1월 3일 오후 3시',
+    address: '복당시 동당읍 동당리 동당마을 4단지 초가집 3호',
+    imageUrl: 'assets/images/house_image3.jpg',
+  ),
+];
+
+class HouseCard extends StatelessWidget {
+  final House house;
+
+  const HouseCard({super.key, required this.house});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/images/house.png', // 로컬 이미지 사용
-              fit: BoxFit.cover,
+    return SizedBox(
+      width: double.infinity, // WeatherCard와 동일한 너비 설정
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 8.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
+              child: Image.asset(
+                house.imageUrl,
+                height: 150,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "영산강 뷰 완전 조은 단독주택",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 4),
-                Text("3:30 PM | 아따 뷰가 좋당께"),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    house.title,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    house.date,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    house.address,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class AverageInfoSection extends StatelessWidget {
-  const AverageInfoSection({super.key});
+class House {
+  final String title;
+  final String date;
+  final String address;
+  final String imageUrl;
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "평균 온·습·조도",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 16),
-        // 여기에 그래프나 데이터를 추가합니다.
-        Container(
-          height: 100,
-          color: Colors.grey[200], // 그래프 데이터로 교체할 수 있습니다.
-          child: const Center(child: Text("데이터 준비 중")),
-        ),
-      ],
-    );
-  }
+  House({
+    required this.title,
+    required this.date,
+    required this.address,
+    required this.imageUrl,
+  });
 }

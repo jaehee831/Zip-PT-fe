@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:zippt/colors.dart';
 import 'package:zippt/home_screen.dart';
 import 'checklist_screen.dart';
-import 'archive_page.dart';
 
 void main() {
   // Flutter 앱의 시작점
@@ -101,9 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    ChecklistScreen(),
+    const ChecklistScreen(),
     const Center(child: Text('Add')),
-    ArchivePage(),
     const Center(child: Text('Profile')),
   ];
 
@@ -130,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.mainBlue, 
+        backgroundColor: AppColors.mainBlue,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -145,10 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Add',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.inbox),
-            label: 'Archive',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
@@ -156,7 +150,6 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
-       
       ),
     );
   }
