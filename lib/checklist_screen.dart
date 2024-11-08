@@ -86,7 +86,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
               ),
               padding: const EdgeInsets.all(16.0), // 텍스트 주위에 여백 추가
               child: const Text(
-                '본인에게 있어서 꼭 체크해야하는 부분을 자유롭게 추가해 주세요.',
+                '꼭 체크해야하는 부분을 아래에 자유롭게 추가해 주세요.',
                 style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                 textAlign: TextAlign.center,
               ),
