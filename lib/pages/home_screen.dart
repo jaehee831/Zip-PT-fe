@@ -190,7 +190,8 @@ class HouseCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(10.0)),
               child: Image.asset(
                 house.imageUrl,
                 height: 150,
