@@ -18,8 +18,6 @@ class HomeScreen extends StatelessWidget {
               WeatherCard(),
               SizedBox(height: 20),
               RecentHouseCard(),
-              SizedBox(height: 20),
-              AverageInfoSection(),
             ],
           ),
         ),
@@ -32,7 +30,7 @@ class WeatherCard extends StatefulWidget {
   const WeatherCard({super.key});
 
   @override
-  _WeatherCardState createState() => _WeatherCardState();
+  State<WeatherCard> createState() => _WeatherCardState();
 }
 
 class _WeatherCardState extends State<WeatherCard> {
@@ -62,7 +60,7 @@ class _WeatherCardState extends State<WeatherCard> {
 
     if (response.statusCode == 200) {
       final data = json.decode(utf8.decode(response.bodyBytes));
-      
+
       setState(() {
         city = data['city'];
         temperature = "${data['temperature']['current']}°";
@@ -107,10 +105,12 @@ class _WeatherCardState extends State<WeatherCard> {
                 children: [
                   Text(
                     temperature,
-                    style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 36, fontWeight: FontWeight.bold),
                   ),
                   Text(description),
-                  Text(feelsLike, style: const TextStyle(fontSize: 14, color: Colors.grey)),
+                  Text(feelsLike,
+                      style: const TextStyle(fontSize: 14, color: Colors.grey)),
                 ],
               ),
               const Spacer(),
@@ -178,30 +178,6 @@ class RecentHouseCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class AverageInfoSection extends StatelessWidget {
-  const AverageInfoSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "평균 온·습·조도",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 16),
-        // 여기에 그래프나 데이터를 추가합니다.
-        Container(
-          height: 100,
-          color: Colors.grey[200], // 그래프 데이터로 교체할 수 있습니다.
-          child: const Center(child: Text("데이터 준비 중")),
-        ),
-      ],
     );
   }
 }
