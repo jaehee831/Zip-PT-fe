@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:zippt/colors.dart';
 import 'package:zippt/home_screen.dart';
 import 'checklist_screen.dart';
-import 'pages/archive_page.dart';
+import 'archive_page.dart';
 
 void main() {
   // Flutter 앱의 시작점
@@ -23,8 +24,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // Flutter 앱의 근간이 되는 위젯. 전체 앱의 테마와 홈 화면, 네비게이션 등을 관리
       title: 'Flutter Bottom Navigation',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: AppColors.main,
         fontFamily: 'GowunBatang',
       ),
       home: const SplashScreen(),
@@ -118,13 +121,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       //Flutter에서 화면의 기본 구조를 정의하는 위젯
       appBar: AppBar(
-        title: const Text('ZipPT'),
+        backgroundColor: AppColors.main,
+        elevation: 0, // AppBar 그림자 제거
+        title: null, // 타이틀 제거
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        backgroundColor: AppColors.mainBlue, 
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -150,6 +156,7 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
+       
       ),
     );
   }
