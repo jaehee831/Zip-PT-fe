@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  http: ^0.13.3
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.2.16
@@ -69,9 +70,9 @@ flutter:
   assets:
     - assets/images/logo.png
     - assets/images/house.png
-    - assets/house_image1.jpg
-    - assets/house_image2.jpg
-    - assets/house_image3.jpg
+    - assets/images/house_image1.jpg
+    - assets/images/house_image2.jpg
+    - assets/images/house_image3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

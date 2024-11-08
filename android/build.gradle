@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2' // 적절한 Gradle 플러그인 버전 설정
+        classpath 'com.android.tools.build:gradle:7.0.4' // 적절한 Gradle 플러그인 버전 설정
     }
 }
 

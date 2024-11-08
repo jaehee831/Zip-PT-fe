@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,8 +28,53 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class WeatherCard extends StatelessWidget {
+class WeatherCard extends StatefulWidget {
   const WeatherCard({super.key});
+
+  @override
+  _WeatherCardState createState() => _WeatherCardState();
+}
+
+class _WeatherCardState extends State<WeatherCard> {
+  String city = '';
+  String temperature = '';
+  String feelsLike = '';
+  String description = '';
+  String humidity = '';
+  String iconUrl = '';
+
+  @override
+  void initState() {
+    super.initState();
+    fetchWeatherData();
+  }
+
+  Future<void> fetchWeatherData() async {
+    final url = Uri.parse('http://210.125.84.145:8000/api/weather');
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "latitude": 34.7,
+        "longitude": 126.9780,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(utf8.decode(response.bodyBytes));
+      
+      setState(() {
+        city = data['city'];
+        temperature = "${data['temperature']['current']}°";
+        feelsLike = "체감 ${data['temperature']['feels_like']}°";
+        description = data['weather']['description'];
+        humidity = "습도 ${data['humidity']}%";
+        iconUrl = data['weather']['icon'];
+      });
+    } else {
+      print('Failed to load weather data');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,40 +88,40 @@ class WeatherCard extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "오늘의 날씨",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            "오늘의 날씨 - $city",
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             children: [
-              Icon(Icons.wb_cloudy, size: 40),
-              SizedBox(width: 16),
+              iconUrl.isNotEmpty
+                  ? Image.network(iconUrl, width: 40, height: 40)
+                  : const Icon(Icons.wb_cloudy, size: 40),
+              const SizedBox(width: 16),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "24°",
-                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                    temperature,
+                    style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                   ),
-                  Text("비 조금"),
+                  Text(description),
+                  Text(feelsLike, style: const TextStyle(fontSize: 14, color: Colors.grey)),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Column(
                 children: [
-                  Text("일요일 | 11월 7일"),
-                  SizedBox(height: 8),
+                  const Text("일요일 | 11월 7일"), // 예시 날짜 (서버에서 날짜 데이터를 받지 않는 경우)
+                  const SizedBox(height: 8),
                   Row(
                     children: [
-                      Icon(Icons.thermostat, size: 16),
-                      Text("1010 mbar"),
-                      SizedBox(width: 16),
-                      Icon(Icons.opacity, size: 16),
-                      Text("83% 습도"),
+                      const Icon(Icons.opacity, size: 16),
+                      Text(humidity),
                     ],
                   ),
                 ],
