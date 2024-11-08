@@ -47,7 +47,7 @@ class WeatherCard extends StatefulWidget {
   const WeatherCard({super.key});
 
   @override
-  _WeatherCardState createState() => _WeatherCardState();
+  State<WeatherCard> createState() => _WeatherCardState();
 }
 
 class _WeatherCardState extends State<WeatherCard> {
