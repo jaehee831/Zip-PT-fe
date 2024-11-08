@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zippt/home_screen.dart';
 import 'checklist_screen.dart';
 
 void main() {
@@ -27,8 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    Center(child: Text('Home')),
-    ChecklistScreen(), // 두 번째 탭에 ChecklistScreen 추가
+    HomeScreen(),
+    ChecklistScreen(), 
     Center(child: Text('Add')),
     Center(child: Text('Archive')),
     Center(child: Text('Profile')),
