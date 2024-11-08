@@ -5,23 +5,28 @@ import 'package:zippt/home_screen.dart';
 import 'checklist_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Bottom Navigation',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'GowunBatang',
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -30,10 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyHomePage()), // HomeScreen 대신 MyHomePage로 이동
+        MaterialPageRoute(
+            builder: (context) =>
+                const MyHomePage()), // HomeScreen 대신 MyHomePage로 이동
       );
     });
   }
@@ -41,15 +48,35 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF9F8F4),
+      backgroundColor: const Color(0xFFF9F8F4),
       body: Center(
-        child: Image.asset('assets/images/logo.png'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/logo.png'), // 기존 로고 이미지
+            const SizedBox(height: 16), // 이미지와 텍스트 사이의 간격
+            Text(
+              "나의 집보기 동반자",
+              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+            ),
+            const Text(
+              "집피티",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -58,11 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    ChecklistScreen(), 
-    Center(child: Text('Add')),
-    Center(child: Text('Archive')),
-    Center(child: Text('Profile')),
+    const HomeScreen(),
+    ChecklistScreen(),
+    const Center(child: Text('Add')),
+    const Center(child: Text('Archive')),
+    const Center(child: Text('Profile')),
   ];
 
   void _onItemTapped(int index) {
@@ -75,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ZipPT'),
+        title: const Text('ZipPT'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
