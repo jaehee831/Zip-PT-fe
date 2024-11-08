@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:zippt/colors.dart';
 import 'package:zippt/home_screen.dart';
 import 'checklist_screen.dart';
-import 'pages/archive_page.dart';
 
+import 'pages/archive_page.dart';
 import 'widgets/custom_bottom_navigation_bar.dart';
 
 void main() {
@@ -105,7 +105,6 @@ class _MyHomePageState extends State<MyHomePage> {
     const HomeScreen(),
     const ChecklistScreen(),
     const Center(child: Text('Add')),
-    ArchivePage(),
     const Center(child: Text('Profile')),
   ];
 
