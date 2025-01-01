@@ -4,7 +4,7 @@
 
 [Zip-PT BackEnd Repository Link](https://github.com/Zip-PT/backend)
 
-![이미지 설명](./img/집피티 찐최종_1.jpg)
+![이미지 설명](/img/집피티 찐최종_1.jpg)
 
 ![이미지 설명](./img/집피티 찐최종_2.jpg)
 
