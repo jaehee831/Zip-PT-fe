@@ -1,16 +1,13 @@
-# zippt
+# Zip-PT
 
-A new Flutter project.
+👑 2024 GIST AI&IoT 메이커톤 장려상 수상
 
-## Getting Started
+[Zip-PT BackEnd Repository Link](https://github.com/Zip-PT/backend)
 
-This project is a starting point for a Flutter application.
+<div style="text-align: center;">
+  <img src="./img/집피티 찐최종_1.jpg" alt="Example Image" style="width:80%;"/>
+</div>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div style="text-align: center;">
+  <img src="./img/집피티 찐최종_1.jpg" alt="Example Image" style="width:80%;"/>
+</div>
